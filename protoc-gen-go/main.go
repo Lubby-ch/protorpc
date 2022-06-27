@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/Lubby-ch/protorpc/protoc-gen-go/internal_gengo"
 	"github.com/Lubby-ch/protorpc/protoc-gen-go/plugin"
 	gengo "google.golang.org/protobuf/cmd/protoc-gen-go/internal_gengo"
 	"google.golang.org/protobuf/compiler/protogen"
@@ -33,7 +32,7 @@ func main() {
 		)
 		for _, p := range strings.Split(*plugins, ",") {
 			switch p {
-			case "plugin":
+			case "protorpc":
 				pbrpc = true
 			case "":
 			default:
@@ -42,7 +41,7 @@ func main() {
 		}
 		for _, f := range gen.Files {
 			if f.Generate {
-				gfile = internal_gengo.GenerateFile(gen, f)
+				gfile = gengo.GenerateFile(gen, f)
 				if pbrpc && gfile != nil {
 					GenerateServiceFile(plugin.NewRpcPlugin(gen, f, gfile))
 				}
@@ -52,5 +51,3 @@ func main() {
 		return nil
 	})
 }
-
-//  protoc --protorpc_out=plugins=plugin:. .\*.proto
