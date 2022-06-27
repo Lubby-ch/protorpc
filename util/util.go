@@ -55,9 +55,13 @@ func ReadSize(reader io.Reader) (uint64, error) {
 		if err != nil {
 			return 0, err
 		}
-		if i == CONST_UINT64_BYTE_NUM && data&0x80 > 0 {
-			return 0, errors.New("rpc: header size overflows a 64-bit integer")
+		if data < 0x80 {
+			if i == CONST_UINT64_BYTE_NUM && data&0x80 > 0 {
+				return 0, errors.New("rpc: header size overflows a 64-bit integer")
+			}
+			return size | uint64(data)<<shift, nil
 		}
+		
 		size |= uint64(data&0x7F) << shift
 		shift += 7
 	}
