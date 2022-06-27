@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/Lubby-ch/protorpc/protoc-gen-go/internal_gengo"
+	"github.com/Lubby-ch/protorpc/protoc-gen-go/plugin"
 	gengo "google.golang.org/protobuf/cmd/protoc-gen-go/internal_gengo"
 	"google.golang.org/protobuf/compiler/protogen"
-	"protorpc/protoc-gen-go/internal_gengo"
-	"protorpc/protoc-gen-go/plugin"
 
 	"strings"
 )
