@@ -33,7 +33,7 @@ func NewClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec {
 // WriteRequest handles user's request and send request.Seq and request.ServiceMethod to the remote server to realize
 // Remote procedure call.
 //@param request
-func (c clientCodec) WriteRequest(request *rpc.Request, i interface{}) error {
+func (c *clientCodec) WriteRequest(request *rpc.Request, i interface{}) error {
 	c.mutex.Lock()
 	c.pending[request.Seq] = request.ServiceMethod
 	c.mutex.Unlock()
@@ -51,7 +51,7 @@ func (c clientCodec) WriteRequest(request *rpc.Request, i interface{}) error {
 	return writeRequest(c.conn, request.Seq, request.ServiceMethod, req)
 }
 
-func (c clientCodec) ReadResponseHeader(response *rpc.Response) error {
+func (c *clientCodec) ReadResponseHeader(response *rpc.Response) error {
 	var (
 		header = new(wire.ResponseHeader)
 	)
@@ -71,7 +71,7 @@ func (c clientCodec) ReadResponseHeader(response *rpc.Response) error {
 	return nil
 }
 
-func (c clientCodec) ReadResponseBody(i interface{}) error {
+func (c *clientCodec) ReadResponseBody(i interface{}) error {
 	var response proto.Message
 	if i != nil {
 		var ok bool
@@ -90,7 +90,7 @@ func (c clientCodec) ReadResponseBody(i interface{}) error {
 	return nil
 }
 
-func (c clientCodec) Close() error {
+func (c *clientCodec) Close() error {
 	return c.conn.Close()
 }
 

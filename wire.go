@@ -42,7 +42,7 @@ func writeRequest(writer io.Writer, id uint64, method string, request proto.Mess
 		Checksum:                   crc32.ChecksumIEEE(comoressProtoReq),
 	}
 
-	if !UseSnappy {
+	if !UseSnappy || header.RawRequestLen < header.SnappyCompressedRequestLen {
 		header.SnappyCompressedRequestLen = 0
 		comoressProtoReq = protoReq
 	}
@@ -62,7 +62,7 @@ func writeRequest(writer io.Writer, id uint64, method string, request proto.Mess
 	if err = util.Send(writer, protoHeader); err != nil {
 		return nil
 	}
-	return util.Send(writer, protoReq)
+	return util.Send(writer, comoressProtoReq)
 }
 
 func readRequestHeader(reader io.Reader, header proto.Message) (err error) {
