@@ -2,8 +2,6 @@ module protorpc
 
 go 1.17
 
-replace github.com/Lubby-ch/protorpc => github.com/Lubby-ch/protorpc v0.0.0-20220627061440-29627a95e2c0
-
 require (
 	github.com/golang/protobuf v1.5.2
 	github.com/golang/snappy v0.0.3
