@@ -46,8 +46,11 @@ func writeRequest(writer io.Writer, id uint64, method string, request proto.Mess
 		header.SnappyCompressedRequestLen = 0
 		comoressProtoReq = protoReq
 	}
+
 	if !UseCrc32ChecksumIEEE {
 		header.Checksum = 0
+	} else {
+		header.Checksum = crc32.ChecksumIEEE(comoressProtoReq)
 	}
 
 	protoHeader, err := proto.Marshal(header)
@@ -132,7 +135,6 @@ func writeResponse(writer io.Writer, id uint64, strErr string, response proto.Me
 		Error:                       strErr,
 		RawResponseLen:              uint32(len(protoResp)),
 		SnappyCompressedResponseLen: uint32(len(compressProtoResp)),
-		Checksum:                    crc32.ChecksumIEEE(compressProtoResp),
 	}
 
 	if !UseSnappy {
@@ -141,6 +143,8 @@ func writeResponse(writer io.Writer, id uint64, strErr string, response proto.Me
 	}
 	if !UseCrc32ChecksumIEEE {
 		header.Checksum = 0
+	} else {
+		header.Checksum = crc32.ChecksumIEEE(compressProtoResp)
 	}
 
 	protoHeader, err := proto.Marshal(header)
