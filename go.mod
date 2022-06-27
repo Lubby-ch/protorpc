@@ -1,4 +1,4 @@
-module protorpc
+module github.com/Lubby-ch/protorpc
 
 go 1.17
 
