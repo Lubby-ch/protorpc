@@ -5,8 +5,9 @@ import (
 	"fmt"
 	gengo "google.golang.org/protobuf/cmd/protoc-gen-go/internal_gengo"
 	"google.golang.org/protobuf/compiler/protogen"
-	"protoc-gen-go/internal_gengo"
-	"protoc-gen-go/plugin"
+	"protorpc/protoc-gen-go/internal_gengo"
+	"protorpc/protoc-gen-go/plugin"
+
 	"strings"
 )
 
