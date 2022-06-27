@@ -61,7 +61,7 @@ func ReadSize(reader io.Reader) (uint64, error) {
 			}
 			return size | uint64(data)<<shift, nil
 		}
-		
+
 		size |= uint64(data&0x7F) << shift
 		shift += 7
 	}

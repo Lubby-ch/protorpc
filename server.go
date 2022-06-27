@@ -42,7 +42,7 @@ func (s *serverCodec) ReadRequestHeader(req *rpc.Request) error {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 	s.seq++
-	s.pending[s.seq] = s.reqHeader.Id
+	s.pending[s.seq] = header.Id
 	s.reqHeader = header
 
 	req.ServiceMethod = s.reqHeader.Method
