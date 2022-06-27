@@ -2,12 +2,12 @@ package protorpc
 
 import (
 	"fmt"
+	"github.com/Lubby-ch/protorpc/util"
+	"github.com/Lubby-ch/protorpc/wire"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/snappy"
 	"hash/crc32"
 	"io"
-	"protorpc/util"
-	"protorpc/wire"
 )
 
 var (

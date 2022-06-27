@@ -2,9 +2,9 @@ package protorpc
 
 import (
 	"fmt"
+	"github.com/Lubby-ch/protorpc/wire"
 	"github.com/golang/protobuf/proto"
 	"io"
-	"protorpc/wire"
 
 	"net"
 	"net/rpc"
