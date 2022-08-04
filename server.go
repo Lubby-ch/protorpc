@@ -1,6 +1,7 @@
 package protorpc
 
 import (
+	"errors"
 	"fmt"
 	"github.com/Lubby-ch/protorpc/wire"
 	"github.com/golang/protobuf/proto"
@@ -81,12 +82,11 @@ func (s *serverCodec) WriteResponse(resp *rpc.Response, i interface{}) error {
 		}
 	}
 	s.mutex.Lock()
+	defer s.mutex.Unlock()
 	id, ok := s.pending[resp.Seq]
 	if !ok {
-		s.mutex.Unlock()
 		return fmt.Errorf("rpc: invalid sequence number in response")
 	}
-	s.mutex.Unlock()
 	err := writeResponse(s.conn, id, resp.Error, response)
 	if err != nil {
 		return err
