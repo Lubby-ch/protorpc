@@ -1,7 +1,6 @@
 package protorpc
 
 import (
-	"errors"
 	"fmt"
 	"github.com/Lubby-ch/protorpc/wire"
 	"github.com/golang/protobuf/proto"
